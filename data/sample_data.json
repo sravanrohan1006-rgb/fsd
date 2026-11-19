@@ -1,0 +1,149 @@
+{
+  "department": "Computer Science & Engineering",
+  "faculty": [
+    {
+      "id": "fac_kulkarni",
+      "name": "Prof. Kulkarni",
+      "course": "CS302 - Operating Systems",
+      "teachingClarity": 4.2,
+      "pacing": 3.4,
+      "doubtResolution": 4.6,
+      "overallSentiment": 0.65,
+      "reviewCount": 12,
+      "sentimentDistribution": {
+        "positive": 68,
+        "neutral": 20,
+        "negative": 12
+      },
+      "strengths": [
+        "Great theoretical clarity",
+        "In-depth concept coverage",
+        "Responsive to doubts"
+      ],
+      "concerns": [
+        "Fast Pacing during algorithm proofs",
+        "Needs more solved numericals"
+      ],
+      "actionRecommendation": "Pacing adjustment recommended: slow down slide transitions during complex process scheduling algorithms."
+    },
+    {
+      "id": "fac_sharma",
+      "name": "Dr. Sharma",
+      "course": "CS201 - Data Structures & Algorithms",
+      "teachingClarity": 4.8,
+      "pacing": 4.5,
+      "doubtResolution": 4.9,
+      "overallSentiment": 0.82,
+      "reviewCount": 15,
+      "sentimentDistribution": {
+        "positive": 85,
+        "neutral": 10,
+        "negative": 5
+      },
+      "strengths": [
+        "Excellent whiteboard problem solving",
+        "Interactive coding demos",
+        "Very approachable"
+      ],
+      "concerns": [
+        "Occasional late assignment grading"
+      ],
+      "actionRecommendation": "Sustain current pedagogical methods; consider automated grading tool for assignments."
+    },
+    {
+      "id": "fac_verma",
+      "name": "Prof. Verma",
+      "course": "CS401 - Database Management Systems",
+      "teachingClarity": 3.5,
+      "pacing": 2.8,
+      "doubtResolution": 3.2,
+      "overallSentiment": 0.18,
+      "reviewCount": 9,
+      "sentimentDistribution": {
+        "positive": 35,
+        "neutral": 30,
+        "negative": 35
+      },
+      "strengths": [
+        "Well-structured syllabus",
+        "Good lab infrastructure"
+      ],
+      "concerns": [
+        "Unclear Exam Patterns",
+        "Monotone lecture delivery",
+        "Outdated slide deck"
+      ],
+      "actionRecommendation": "Coaching opportunity: refresh SQL tutorial decks and organize pre-exam doubt sessions."
+    },
+    {
+      "id": "fac_deshmukh",
+      "name": "Dr. Deshmukh",
+      "course": "MA204 - Discrete Mathematics",
+      "teachingClarity": 4.0,
+      "pacing": 4.1,
+      "doubtResolution": 3.9,
+      "overallSentiment": 0.54,
+      "reviewCount": 10,
+      "sentimentDistribution": {
+        "positive": 60,
+        "neutral": 25,
+        "negative": 15
+      },
+      "strengths": [
+        "Rigorous mathematical proofs",
+        "Punctual & disciplined"
+      ],
+      "concerns": [
+        "Heavy homework load"
+      ],
+      "actionRecommendation": "Balance homework volume with collaborative group problem solving."
+    }
+  ],
+  "recentReviews": [
+    {
+      "id": "rev_101",
+      "facultyId": "fac_kulkarni",
+      "facultyName": "Prof. Kulkarni",
+      "course": "CS302",
+      "ratings": {
+        "clarity": 4,
+        "pacing": 3,
+        "doubt": 5
+      },
+      "text": "Great theoretical explanations, but slides move too fast during algorithm proofs.",
+      "sentimentScore": 0.65,
+      "polarity": "Positive",
+      "timestamp": "2026-11-18T20:15:00Z"
+    },
+    {
+      "id": "rev_102",
+      "facultyId": "fac_sharma",
+      "facultyName": "Dr. Sharma",
+      "course": "CS201",
+      "ratings": {
+        "clarity": 5,
+        "pacing": 5,
+        "doubt": 5
+      },
+      "text": "Super chill professor! Explains binary trees with awesome live coding examples.",
+      "sentimentScore": 0.88,
+      "polarity": "Positive",
+      "timestamp": "2026-11-18T21:05:00Z"
+    },
+    {
+      "id": "rev_103",
+      "facultyId": "fac_verma",
+      "facultyName": "Prof. Verma",
+      "course": "CS401",
+      "ratings": {
+        "clarity": 2,
+        "pacing": 2,
+        "doubt": 3
+      },
+      "text": "Midterm exam paper was completely out of syllabus and slide notes are too old.",
+      "sentimentScore": -0.62,
+      "polarity": "Negative",
+      "timestamp": "2026-11-18T22:00:00Z"
+    }
+  ]
+}

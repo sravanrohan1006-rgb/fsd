@@ -1,0 +1,25 @@
+{
+  "name": "feedback-flow-fullstack",
+  "version": "1.0.0",
+  "description": "FeedbackFlow: SentimentScope - Fullstack Student Feedback & Sentiment Analytics Platform for Higher Education",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "feedback",
+    "sentiment-analysis",
+    "afinn",
+    "vader",
+    "express",
+    "chartjs",
+    "higher-education"
+  ],
+  "author": "FeedbackFlow Team",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}

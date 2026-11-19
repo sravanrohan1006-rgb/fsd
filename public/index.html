@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FeedbackFlow: SentimentScope | Student Feedback System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <span class="logo-icon">⚡</span>
+      <span class="brand-name">FeedbackFlow <small>SentimentScope</small></span>
+    </div>
+    <nav class="nav-tabs">
+      <button id="tab-student" class="tab-btn active" onclick="switchTab('student')">🎓 Student Evaluation Form</button>
+      <button id="tab-hod" class="tab-btn" onclick="switchTab('hod')">📊 HOD Faculty Dashboard</button>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- STUDENT EVALUATION SECTION -->
+    <section id="section-student" class="tab-content active">
+      <div class="hero-card">
+        <h1>Anonymous Course Evaluation Portal</h1>
+        <p>Your honest qualitative feedback guides faculty coaching and course improvement. Submissions are fully anonymized via zero-knowledge hashed session tokens.</p>
+        <div class="privacy-badge">
+          <span>🔒 Privacy Shield Active</span> — Metadata, Roll No., and IP Address stripped automatically.
+        </div>
+      </div>
+
+      <div class="grid-2col">
+        <!-- Form Container -->
+        <div class="card form-card">
+          <h2>Submit Faculty Feedback</h2>
+          <form id="feedbackForm" onsubmit="handleFeedbackSubmit(event)">
+
+            <div class="form-group">
+              <label for="facultySelect">Select Faculty & Course *</label>
+              <select id="facultySelect" required onchange="updateSelectedFacultyInfo()">
+                <option value="">-- Choose Instructor --</option>
+              </select>
+            </div>
+
+            <div class="rating-grid">
+              <div class="rating-item">
+                <label>Teaching Clarity (1–5)</label>
+                <input type="range" id="ratingClarity" min="1" max="5" value="4" oninput="document.getElementById('valClarity').innerText = this.value">
+                <span class="rating-num" id="valClarity">4</span> ⭐
+              </div>
+
+              <div class="rating-item">
+                <label>Lecture Pacing (1–5)</label>
+                <input type="range" id="ratingPacing" min="1" max="5" value="4" oninput="document.getElementById('valPacing').innerText = this.value">
+                <span class="rating-num" id="valPacing">4</span> ⭐
+              </div>
+
+              <div class="rating-item">
+                <label>Doubt Resolution (1–5)</label>
+                <input type="range" id="ratingDoubt" min="1" max="5" value="5" oninput="document.getElementById('valDoubt').innerText = this.value">
+                <span class="rating-num" id="valDoubt">5</span> ⭐
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="reviewText">Qualitative Student Review *</label>
+              <textarea id="reviewText" rows="4" placeholder="Share specific observations (e.g., 'Great theoretical explanations, but slides move too fast during algorithm proofs')..." required oninput="previewLiveSentiment(this.value)"></textarea>
+            </div>
+
+            <!-- Live Sentiment Preview Pill -->
+            <div id="liveSentimentBox" class="sentiment-preview neutral">
+              <span class="preview-label">Live NLP Score Preview:</span>
+              <span id="previewScore">0.00</span>
+              <span id="previewPolarity" class="badge">Neutral</span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">🚀 Submit Anonymous Feedback</button>
+          </form>
+        </div>
+
+        <!-- System Architecture & Info Box -->
+        <div class="card info-card">
+          <h3>⚡ How SentimentScope NLP Works</h3>
+          <ul class="feature-list">
+            <li><strong>Lexicon Polarity Scoring:</strong> Evaluates valence using AFINN-165 & VADER heuristics mapped from <code>-1.0</code> (Negative) to <code>+1.0</code> (Positive).</li>
+            <li><strong>Collegiate Idiom Engine:</strong> Custom dictionary rules for academic terms (e.g., <em>"chill professor"</em> ➜ +2, <em>"out of syllabus"</em> ➜ -3).</li>
+            <li><strong>Actionable Feedback Routing:</strong> Categorizes pacing, doubt resolution, and exam patterns directly for HOD evaluation.</li>
+          </ul>
+
+          <div id="submissionResult" class="result-alert hidden">
+            <h4>✅ Submission Successful!</h4>
+            <p><strong>Session Token Hash:</strong> <code id="resultHash"></code></p>
+            <p><strong>Computed Sentiment:</strong> <span id="resultSentiment"></span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOD ANALYTICS DASHBOARD SECTION -->
+    <section id="section-hod" class="tab-content">
+      <div class="hero-card hod-hero">
+        <div>
+          <h1>HOD Faculty Analytics Command Center</h1>
+          <p id="deptTitle">Department of Computer Science & Engineering</p>
+        </div>
+        <div class="kpi-banner">
+          <div class="kpi-box">
+            <span class="kpi-val" id="kpiHappiness">--</span>
+            <span class="kpi-lbl">Department Happiness Index</span>
+          </div>
+          <div class="kpi-box">
+            <span class="kpi-val" id="kpiAvgScore">--</span>
+            <span class="kpi-lbl">Avg Sentiment Score</span>
+          </div>
+          <div class="kpi-box">
+            <span class="kpi-val" id="kpiTotalReviews">--</span>
+            <span class="kpi-lbl">Total Submissions</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Department Distribution Chart & Faculty Comparison -->
+      <div class="grid-2col mb-4">
+        <div class="card">
+          <h3>📊 Sentiment Polarity Distribution</h3>
+          <div class="chart-wrapper">
+            <canvas id="chartDepartmentSentiment"></canvas>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>📈 Faculty Benchmark Matrix vs Department Average</h3>
+          <div class="table-responsive">
+            <table class="benchmark-table">
+              <thead>
+                <tr>
+                  <th>Faculty</th>
+                  <th>Clarity</th>
+                  <th>Pacing</th>
+                  <th>Doubts</th>
+                  <th>Sentiment</th>
+                </tr>
+              </thead>
+              <tbody id="benchmarkTableBody">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Faculty Cards Grid -->
+      <h2 class="section-heading">Faculty Performance Cards</h2>
+      <div id="facultyCardsGrid" class="grid-2col">
+        <!-- Faculty cards inserted dynamically -->
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>FeedbackFlow: SentimentScope © 2026 | Built for Accessible Student Feedback & Faculty Analytics</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
